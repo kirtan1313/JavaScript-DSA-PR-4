@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stack</title>
+</head>
+<body>
+    <script>
+        class Stack {
+            constructor(limit) {
+                this.stack = [];
+                this.size = 0;
+                this.limit = limit || 10;
+            }
+
+            push(ele) {
+                if (this.size < this.limit) {
+                    this.stack.push(ele);
+                    this.size++;
+                } else {
+                    console.log("Stack is full...");
+                }
+            }
+
+            pop() {
+                if (this.size > 0) {
+                    this.size--;
+                    return this.stack.pop();
+                } else {
+                    console.log("Stack is empty...");
+                    return null;
+                }
+            }
+
+            peek() {
+                if (this.size > 0) {
+                    return this.stack[this.size - 1];
+                } else {
+                    console.log("Stack is empty...");
+                    return null;
+                }
+            }
+
+            isEmpty() {
+                return this.size === 0;
+            }
+
+            isFull() {
+                return this.size === this.limit;
+            }
+
+            sort() {
+                if (this.isEmpty()) {
+                    console.log("Stack is empty, nothing to sort.");
+                    return;
+                }
+
+                let sortedStack = new Stack(this.limit);
+
+                while (!this.isEmpty()) {
+                    let temp = this.pop();
+
+                    while (!sortedStack.isEmpty() && sortedStack.peek() < temp) {
+                        this.push(sortedStack.pop());
+                    }
+
+                    sortedStack.push(temp);
+                }
+
+                while (!sortedStack.isEmpty()) {
+                    this.push(sortedStack.pop());
+                }
+
+                console.log("Stack sorted.");
+            }
+        }
+
+        let st = new Stack();
+        st.push(10);
+        st.push(20);
+        st.push(5);
+        st.push(30);
+        st.push(15);
+        st.sort();
+        console.log("Stack after sorting:", st.stack);
+    </script>
+</body>
+</html>

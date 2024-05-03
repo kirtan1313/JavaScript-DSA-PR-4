@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stack</title>
+</head>
+<body>
+    <script>
+        class Stack {
+            constructor(limit) {
+                this.stack = [];
+                this.size = 0;
+                this.limit = limit || 10;
+            }
+
+            push(ele) {
+                if (this.size < this.limit) {
+                    this.stack.push(ele);
+                    this.size++;
+                } else {
+                    console.log("stack is full...");
+                }
+            }
+
+            pop() {
+                if (this.size > 0) {
+                    this.stack.pop();
+                    this.size--;
+                } else {
+                    console.log("stack is empty...");
+                }
+            }
+
+            peek() {
+                if (this.size > 0) {
+                    return this.stack[this.size - 1];
+                } else {
+                    console.log("stack is empty...");
+                    return null;
+                }
+            }
+
+            isEmpty() {
+                return this.size === 0;
+            }
+
+            isFull() {
+                return this.size === this.limit;
+            }
+
+            deleteMiddle() {
+                if (this.isEmpty()) {
+                    console.log("Stack is empty, nothing to delete.");
+                    return;
+                }
+
+                let mid = Math.floor(this.size / 2);
+                let tempStack = [];
+
+                for (let i = 0; i < mid; i++) {
+                    tempStack.push(this.stack.pop());
+                    this.size--;
+                }
+
+                this.stack.pop();
+                this.size--;
+
+                while (tempStack.length > 0) {
+                    this.stack.push(tempStack.pop());
+                    this.size++;
+                }
+
+                console.log("Middle element deleted from the stack.");
+            }
+        }
+
+        let st = new Stack();
+        st.push(10);
+        st.push(20);
+        st.push(30);
+        st.push(40);
+        st.deleteMiddle();
+        console.log("Stack after deleting middle element:", st.stack);
+    </script>
+</body>
+</html>
